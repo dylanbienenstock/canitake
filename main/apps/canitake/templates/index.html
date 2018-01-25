@@ -4,7 +4,12 @@
 	<div id="autocomplete-container"></div>
 
 	<div id="interface-container">
-		<div id="symbol">&nbsp;</div>
+		<div id="symbol">
+			{% load static %}
+			<div class="safety-icon-container">
+				<img class="safety-icon" src="{% static 'img/unknown.svg' %}">
+			</div>
+		</div>
 
 		<div id="interface">
 			Can I take&nbsp;
