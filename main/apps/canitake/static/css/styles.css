@@ -1,0 +1,49 @@
+:root {
+	--main-text-color: white;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+
+	/* https://css-tricks.com/snippets/css/better-helvetica */
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+	font-weight: 300;
+
+	background-color: #444;
+}
+
+#interface-container {
+	display: flex;
+	flex-flow: column nowrap;
+	height: 100vh;
+
+	color: var(--main-text-color);
+	font-size: 7vmin;
+	text-align: center;
+
+	text-shadow: 4px 4px 2px rgba(0, 0, 0, 0.2);
+}
+
+#symbol {
+	flex: 0.4 1;
+}
+
+#information {
+	flex: 1 1;
+}
+
+input[type=text] {
+	outline: none;
+	border: none;
+
+	width: 26vmin;
+	border-bottom: 2px solid var(--main-text-color);
+
+	background-color: transparent;
+	color: var(--main-text-color);
+	font-size: 3vmin;
+	text-align: center;
+
+	text-shadow: 4px 4px 2px rgba(0, 0, 0, 0.2);
+}

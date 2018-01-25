@@ -1,5 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-	Hello world!
+	<div id="interface-container">
+		<div id="symbol">&nbsp;</div>
+
+		<div id="interface">
+			Can I take&nbsp;
+			<input type="text" name="first" maxlength="255" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus>
+			&nbsp;with&nbsp;
+			<input type="text" name="second" maxlength="255" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+			?
+		</div>
+
+		<div id="information">&nbsp;</div>
+	</div>
 {% endblock %}
