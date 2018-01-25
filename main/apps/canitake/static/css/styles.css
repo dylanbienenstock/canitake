@@ -3,6 +3,17 @@
 	--shadow: 0.5vmin 0.5vmin 0.25vmin;
 }
 
+/* https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting */
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
 body {
 	margin: 0;
 	padding: 0;
@@ -34,20 +45,6 @@ body {
 	flex: 1 1;
 }
 
-input[type=text] {
-	outline: none;
-	border: none;
-
-	width: 26vmin;
-
-	background-color: transparent;
-	color: var(--main-text-color);
-	font-size: 3vmin;
-	text-align: center;
-
-	text-shadow: var(--shadow) rgba(0, 0, 0, 0.1);
-}
-
 .underlined-input {
 	display: inline-block;
 	vertical-align: bottom;
@@ -58,6 +55,8 @@ input[type=text] {
 	height: 2px;
 	line-height: 2px;
 	background-color: var(--main-text-color);
+
+	pointer-events: none;
 }
 
 .underline-shadow {
@@ -67,4 +66,36 @@ input[type=text] {
 	-webkit-box-shadow: var(--shadow) 0px rgba(0, 0, 0, 0.3);
 	-moz-box-shadow: var(--shadow) 0px rgba(0, 0, 0, 0.3);
 	box-shadow: var(--shadow) 0px rgba(0, 0, 0, 0.3);
+
+	pointer-events: none;
+}
+
+.drug-input, #autocomplete-container {
+	outline: none;
+	border: none;
+
+	width: 26vmin;
+
+	background-color: transparent;
+	color: var(--main-text-color);
+	font-size: 4vmin;
+	text-align: center;
+
+	text-shadow: var(--shadow) rgba(0, 0, 0, 0.1);
+}
+
+#autocomplete-container {
+	position: absolute;
+}
+
+.autocomplete-suggestion {
+	cursor: pointer;
+
+	opacity: 0.5;
+	margin: 0 0 10px 0;
+	font-size: 4vmin;
+}
+
+.autocomplete-suggestion:hover {
+	opacity: 1;
 }

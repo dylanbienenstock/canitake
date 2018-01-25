@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
+	<div id="autocomplete-container"></div>
+
 	<div id="interface-container">
 		<div id="symbol">&nbsp;</div>
 
@@ -8,7 +10,7 @@
 			Can I take&nbsp;
 
 			<div class="underlined-input">
-				<input type="text" name="first" maxlength="255" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus>
+				<input class="drug-input" id="first-drug" type="text" maxlength="255" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
 				<div class="underline">&nbsp;</div>
 				<div class="underline-shadow">&nbsp;</div>
 			</div>
@@ -16,7 +18,7 @@
 			&nbsp;with&nbsp;
 
 			<div class="underlined-input">
-				<input type="text" name="second" maxlength="255" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+				<input class="drug-input" id="second-drug" type="text" maxlength="255" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
 				<div class="underline">&nbsp;</div>
 				<div class="underline-shadow">&nbsp;</div>
 			</div>
