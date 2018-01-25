@@ -1,5 +1,6 @@
 :root {
 	--main-text-color: white;
+	--shadow: 0.5vmin 0.5vmin 0.25vmin;
 }
 
 body {
@@ -22,7 +23,7 @@ body {
 	font-size: 7vmin;
 	text-align: center;
 
-	text-shadow: 4px 4px 2px rgba(0, 0, 0, 0.2);
+	text-shadow: var(--shadow) rgba(0, 0, 0, 0.2);
 }
 
 #symbol {
@@ -38,12 +39,32 @@ input[type=text] {
 	border: none;
 
 	width: 26vmin;
-	border-bottom: 2px solid var(--main-text-color);
 
 	background-color: transparent;
 	color: var(--main-text-color);
 	font-size: 3vmin;
 	text-align: center;
 
-	text-shadow: 4px 4px 2px rgba(0, 0, 0, 0.2);
+	text-shadow: var(--shadow) rgba(0, 0, 0, 0.1);
+}
+
+.underlined-input {
+	display: inline-block;
+	vertical-align: bottom;
+	line-height: 0;
+}
+
+.underline {
+	height: 2px;
+	line-height: 2px;
+	background-color: var(--main-text-color);
+}
+
+.underline-shadow {
+	position: relative;
+	top: -1px;
+	height: 1px;
+	-webkit-box-shadow: var(--shadow) 0px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: var(--shadow) 0px rgba(0, 0, 0, 0.3);
+	box-shadow: var(--shadow) 0px rgba(0, 0, 0, 0.3);
 }
