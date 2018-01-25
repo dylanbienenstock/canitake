@@ -2,6 +2,7 @@ $(function() {
 	getAllDrugNames();
 
 	var autocompleteTarget;
+	var validateTimeout;
 
 	$(".drug-input").focus(function() {
 		autocompleteTarget = $(this);
@@ -15,31 +16,20 @@ $(function() {
 	});
 
 	$("input").on("input", function() {
-		if (!window.AllDrugNames) return;
-
-		$("#autocomplete-container").empty();
-
 		var input = $(this).val().trim();
+		var $underline = $(this).next();
 
-		if (input) {
-			var suggestions = getAutocompleteSuggestions(input);
+		showAutocompleteSuggestions(input);
 
-			for (var i = 0; i < Math.min(suggestions.length, 5); i++) {
-				if (suggestions[i] == input) {
-					$("#autocomplete-container").empty();
-
-					break;
-				}
-
-				$("#autocomplete-container").append(`
-					<p class="autocomplete-suggestion noselect">${suggestions[i]}</p>
-				`)
-			}
-		}
+		clearTimeout(validateTimeout);
+		validateTimeout = setTimeout(function() {
+			validateDrugName($underline, input);
+		}, 300);
 	});
 
 	$(document).on("click", ".autocomplete-suggestion", function() {
 		autocompleteTarget.val($(this).text());
+		validateDrugName(autocompleteTarget.next(), $(this).text());
 		$("#autocomplete-container").empty();
 	});
 
@@ -82,4 +72,56 @@ function getAutocompleteSuggestions(input) {
 	});
 
 	return suggestions;
+}
+
+function showAutocompleteSuggestions(input) {
+	if (!window.AllDrugNames) return;
+
+	$("#autocomplete-container").empty();
+
+	if (input) {
+		var suggestions = getAutocompleteSuggestions(input);
+
+		for (var i = 0; i < Math.min(suggestions.length, 5); i++) {
+			if (suggestions[i] == input) {
+				$("#autocomplete-container").empty();
+
+				break;
+			}
+
+			$("#autocomplete-container").append(`
+				<p class="autocomplete-suggestion noselect">${suggestions[i]}</p>
+			`);
+		}
+	}
+}
+
+function validateDrugName($underline, input) {
+	if (!window.AllDrugNames) return;
+
+	if (input) {
+		var valid = false;
+
+		for (var i = 0; i < window.AllDrugNames.length; i++) {
+			if (window.AllDrugNames[i] == input) {
+				valid = true;
+
+				break;
+			}
+		}
+
+		if (valid) {
+			$underline.stop().animate({
+				backgroundColor: "#33FF33"
+			});
+		} else {
+			$underline.stop().animate({
+				backgroundColor: "#FF3333"
+			});
+		}
+	} else {
+		$underline.stop().animate({
+			backgroundColor: "#FFFFFF"
+		});
+	}
 }
