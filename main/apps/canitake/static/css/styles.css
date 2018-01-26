@@ -40,11 +40,16 @@ body {
 #symbol {
 	display: flex;
 	flex-flow: column nowrap;
-	flex: 0.6 1;
+	flex: 0.6;
 }
 
 #information {
-	flex: 1 1;
+	flex: 1;
+}
+
+#information-content {
+	padding-top: 11vh;
+	box-sizing: border-box;
 }
 
 .underlined-input {
@@ -119,4 +124,9 @@ body {
 #icon-loading {
 	display: initial;
 	width: 14vmin;
+}
+
+#combo-status {
+	font-size: 9vmin;
+	font-style: italic;
 }

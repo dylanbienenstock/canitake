@@ -19,13 +19,15 @@ $(function() {
 	});
 
 	$("input").on("input", function() {
-		if (checkingCombo) {
+		if (checkingCombo) { // Reset the interface
 			checkingCombo = false;
 			showIcon("unknown");
 
 			$(document.body).animate({
 				backgroundColor: "#444"
 			}, 500);
+
+			$("#combo-status").stop().fadeOut();
 		}
 
 		showAutocompleteSuggestions();
@@ -49,6 +51,7 @@ $(function() {
 		autocompleteTarget.val($(this).text());
 		validateInputs(autocompleteTarget.next(), $(this).text());
 		$("#autocomplete-container").empty();
+		autocompleteTarget.focus();
 	});
 
 	$("#first-drug").focus();
@@ -196,11 +199,7 @@ function getDrugCombo() {
 	console.log("Getting drug combo...");
 
 	$.getJSON(proxy + url + data, function(response) {
-		if (!response.err) {
-			console.log("Finished.");
-
-			displayDrugCombo(response.data[0]);
-		}
+		displayDrugCombo(response.data[0]);
 
 		console.log(response)
 	});
@@ -209,6 +208,8 @@ function getDrugCombo() {
 function displayDrugCombo(data) {
 	if (checkingCombo) {
 		console.log(data.status)
+
+		$("#combo-status").text(data.status).stop().hide().fadeIn();
 
 		var color = "#444";
 
