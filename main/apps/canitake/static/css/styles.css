@@ -1,6 +1,6 @@
 :root {
 	--main-text-color: white;
-	--shadow: 0.5vmin 0.5vmin 0.25vmin;
+	--shadow: 0.35vmin 0.35vmin 0.25vmin;
 }
 
 /* https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting */
@@ -89,6 +89,9 @@ body {
 	text-align: center;
 
 	text-shadow: var(--shadow) rgba(0, 0, 0, 0.1);
+
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 #autocomplete-container {
@@ -127,6 +130,33 @@ body {
 }
 
 #combo-status {
+	display: none;
 	font-size: 9vmin;
 	font-style: italic;
+}
+
+#more-info-container {
+	position: relative;
+
+	cursor: pointer;
+	display: none;
+	margin-top: 22vh;
+
+	-webkit-transition: padding-top 325ms ease;
+	-moz-transition: padding-top 325ms ease;
+	-ms-transition: padding-top 325ms ease;
+	-o-transition: padding-top 325ms ease;
+	transition: padding-top 325ms ease;
+}
+
+#more-info-container:hover {
+	padding-top: 2vh;
+}
+
+#more-info {
+	font-size: 3.5vmin;
+}
+
+#more-info-button {
+	width: 6vmin;
 }

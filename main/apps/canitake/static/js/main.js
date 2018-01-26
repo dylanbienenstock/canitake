@@ -27,7 +27,8 @@ $(function() {
 				backgroundColor: "#444"
 			}, 500);
 
-			$("#combo-status").stop().fadeOut();
+			$("#combo-status").text("Unknown").stop().fadeOut();
+			$("#more-info-container").stop().fadeOut();
 		}
 
 		showAutocompleteSuggestions();
@@ -210,6 +211,7 @@ function displayDrugCombo(data) {
 		console.log(data.status)
 
 		$("#combo-status").text(data.status).stop().hide().fadeIn();
+		$("#more-info-container").stop().fadeIn().css("display", "inline-block");
 
 		var color = "#444";
 
