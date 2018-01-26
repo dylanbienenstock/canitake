@@ -23,9 +23,29 @@ body {
 	font-weight: 300;
 
 	background-color: #444;
+
+	overflow: hidden;
 }
 
-#interface-container {
+#vignette {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+	width: 100vw;
+	height: 100vh;
+
+	background: rgba(0,0,0,0);
+	background: -moz-radial-gradient(center, ellipse cover, rgba(0,0,0,0) 0%, rgba(0,0,0,0.21) 100%);
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(0,0,0,0)), color-stop(100%, rgba(0,0,0,0.21)));
+	background: -webkit-radial-gradient(center, ellipse cover, rgba(0,0,0,0) 0%, rgba(0,0,0,0.21) 100%);
+	background: -o-radial-gradient(center, ellipse cover, rgba(0,0,0,0) 0%, rgba(0,0,0,0.21) 100%);
+	background: -ms-radial-gradient(center, ellipse cover, rgba(0,0,0,0) 0%, rgba(0,0,0,0.21) 100%);
+	background: radial-gradient(ellipse at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0.21) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000', GradientType=1 );
+}
+
+#interface-page {
 	display: flex;
 	flex-flow: column nowrap;
 	height: 100vh;
@@ -159,4 +179,13 @@ body {
 
 #more-info-button {
 	width: 6vmin;
+}
+
+/* MORE INFO PAGE */
+
+#more-info-page {
+	width: 100vw;
+	height: 100vh;
+
+	background-color: rgba(0, 0, 0, 0.5);
 }

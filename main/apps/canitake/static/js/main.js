@@ -55,6 +55,10 @@ $(function() {
 		autocompleteTarget.focus();
 	});
 
+	$(document).on("click", "#more-info-container", function() {
+		alert("Sorry, there's nothing here yet!");
+	});
+
 	$("#first-drug").focus();
 });
 
