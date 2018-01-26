@@ -14,7 +14,7 @@
    viewBox="0 0 33.866666 33.866668"
    version="1.1"
    id="svg8"
-   sodipodi:docname="template.svg"
+   sodipodi:docname="dangerous.svg"
    inkscape:version="0.92.1 r15371">
   <defs
      id="defs2">
@@ -70,6 +70,15 @@
        apply_no_weight="true"
        apply_with_weight="true"
        only_selected="false" />
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Blur"
+       id="filter3453">
+      <feGaussianBlur
+         stdDeviation="0.8 0.8"
+         result="blur"
+         id="feGaussianBlur3451" />
+    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -78,16 +87,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.6"
-     inkscape:cx="60.277724"
-     inkscape:cy="46.945221"
+     inkscape:zoom="2.8"
+     inkscape:cx="21.579232"
+     inkscape:cy="63.918438"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="true"
      units="px"
      inkscape:pagecheckerboard="true"
      inkscape:snap-bbox="true"
-     inkscape:snap-nodes="true"
+     inkscape:snap-nodes="false"
      inkscape:snap-bbox-midpoints="false"
      inkscape:bbox-nodes="false"
      inkscape:bbox-paths="false"
@@ -121,17 +130,26 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-263.1333)">
+    <path
+       inkscape:connector-curvature="0"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.90736008px;line-height:1.25;font-family:'Bitstream Charter';-inkscape-font-specification:'Bitstream Charter, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:0.33333334;stroke:none;stroke-width:0.94770175;filter:url(#filter3453)"
+       d="m 18.378333,268.84977 c -0.824117,-0.0259 -1.596927,0.42228 -2.022099,1.17253 L 5.2018758,289.7286 c -0.914721,1.61545 0.181077,3.67318 1.955953,3.67264 H 29.464996 c 1.773779,-1.5e-4 2.869027,-2.05595 1.95595,-3.67109 L 20.26814,270.02385 c -0.400403,-0.70766 -1.112791,-1.15012 -1.889807,-1.17408 z m -4.701005,10.1632 4.626074,4.73459 4.626591,-4.73459 1.19941,1.24799 -4.606437,4.73511 4.606437,4.71392 -1.19941,1.2485 -4.626591,-4.73511 -4.626074,4.73511 -1.189592,-1.2485 4.596102,-4.71392 -4.596102,-4.73511 z"
+       id="path1184-8" />
     <g
        aria-label="!"
        transform="scale(1.1266385,0.88759614)"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.90736008px;line-height:1.25;font-family:'Bitstream Charter';-inkscape-font-specification:'Bitstream Charter, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.94770175"
        id="text1172">
       <path
-         id="path1184"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.90736008px;font-family:'Bitstream Charter';-inkscape-font-specification:'Bitstream Charter, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;stroke-width:0.94770175"
-         d="m 15.092062,301.69905 c -0.731483,-0.0292 -1.417761,0.47583 -1.795142,1.3211 L 3.3965875,325.2219 c -0.8119026,1.82003 0.1607508,4.13795 1.7361235,4.13734 h 19.799432 c 1.574401,-1.7e-4 2.546568,-2.316 1.736124,-4.13568 l -9.899102,-22.20174 c -0.355396,-0.79728 -0.987428,-1.29577 -1.677105,-1.32277 z"
-         inkscape:connector-curvature="0"
-         sodipodi:nodetypes="ccccccccc" />
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.90736008px;font-family:'Bitstream Charter';-inkscape-font-specification:'Bitstream Charter, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;stroke-width:3.58186483"
+         d="M 64.263672 17.587891 C 61.148899 17.489934 58.228043 19.183909 56.621094 22.019531 L 14.462891 96.5 C 11.005678 102.60564 15.147278 110.38291 21.855469 110.38086 L 106.16602 110.38086 C 112.87007 110.38029 117.00959 102.61033 113.55859 96.505859 L 71.40625 22.025391 C 69.892917 19.35076 67.200428 17.678467 64.263672 17.587891 z M 46.496094 56 L 63.980469 73.894531 L 81.466797 56 L 86 60.716797 L 68.589844 78.613281 L 86 96.429688 L 81.466797 101.14844 L 63.980469 83.251953 L 46.496094 101.14844 L 42 96.429688 L 59.371094 78.613281 L 42 60.716797 L 46.496094 56 z "
+         transform="matrix(0.23484315,0,0,0.29808977,0,296.45611)"
+         id="path1184" />
     </g>
+    <g
+       aria-label="×"
+       transform="scale(0.98848758,1.0116465)"
+       style="font-style:normal;font-weight:normal;font-size:20.88295364px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.52207386"
+       id="text3430" />
   </g>
 </svg>

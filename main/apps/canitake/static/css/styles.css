@@ -106,11 +106,17 @@ body {
 	flex: 1 1;
 }
 
-.safety-icon-container {
+#safety-icon-container {
 	margin-top: 8.75vh;
 	text-align: center;
 }
 
 .safety-icon {
+	display: none;
 	width: 12vmin;
+}
+
+#icon-loading {
+	display: initial;
+	width: 14vmin;
 }

@@ -1,8 +1,10 @@
+var autocompleteTarget;
+var validateFirstDrugTimeout;
+var validateSecondDrugTimeout;
+var submitTimeout;
+
 $(function() {
 	getAllDrugNames();
-
-	var autocompleteTarget;
-	var validateTimeout;
 
 	$(".drug-input").focus(function() {
 		autocompleteTarget = $(this);
@@ -16,25 +18,35 @@ $(function() {
 	});
 
 	$("input").on("input", function() {
-		var input = $(this).val().trim();
-		var $underline = $(this).next();
+		showAutocompleteSuggestions();
 
-		showAutocompleteSuggestions(input);
+		if (this.id == "first-drug") {
+			clearTimeout(validateFirstDrugTimeout);
 
-		clearTimeout(validateTimeout);
-		validateTimeout = setTimeout(function() {
-			validateDrugName($underline, input);
-		}, 300);
+			validateFirstDrugTimeout = setTimeout(function() {
+				validateInputs();
+			}, 300);
+		} else {
+			clearTimeout(validateSecondDrugTimeout);
+
+			validateSecondDrugTimeout = setTimeout(function() {
+				validateInputs();
+			}, 300);	
+		}
 	});
 
 	$(document).on("click", ".autocomplete-suggestion", function() {
 		autocompleteTarget.val($(this).text());
-		validateDrugName(autocompleteTarget.next(), $(this).text());
+		validateInputs(autocompleteTarget.next(), $(this).text());
 		$("#autocomplete-container").empty();
 	});
 
 	$("#first-drug").focus();
 });
+
+function interfaceBroken() {
+	return parseInt($("#interface").css("line-height")) < $("#interface").height() - 5;
+}
 
 function getAllDrugNames() {
 	var url = "http://tripbot.tripsit.me/api/tripsit/getAllDrugAliases";
@@ -44,11 +56,13 @@ function getAllDrugNames() {
 
 	$.getJSON(proxy + url, function(response) {
 		if (!response.err) {
-			console.log("Finished.")
+			console.log("Finished.");
+
+			showIcon("unknown");
 
 			window.AllDrugNames = response.data[0];
 		} else {
-			console.log("Error!")
+			console.log("Error!");
 		}
 	});
 }
@@ -62,7 +76,8 @@ function moveAutocompleteBoxTo($element) {
 	}
 }
 
-function getAutocompleteSuggestions(input) {
+function getAutocompleteSuggestions() {
+	var input = autocompleteTarget.val().trim();
 	var suggestions = [];
 
 	window.AllDrugNames.forEach(function(drug) {
@@ -76,6 +91,8 @@ function getAutocompleteSuggestions(input) {
 
 function showAutocompleteSuggestions(input) {
 	if (!window.AllDrugNames) return;
+
+	var input = autocompleteTarget.val().trim();
 
 	$("#autocomplete-container").empty();
 
@@ -93,6 +110,27 @@ function showAutocompleteSuggestions(input) {
 				<p class="autocomplete-suggestion noselect">${suggestions[i]}</p>
 			`);
 		}
+	}
+}
+
+function validateInputs() {
+	var firstDrugInput = $("#first-drug").val().trim();
+	var secondDrugInput = $("#second-drug").val().trim();
+
+	var firstDrugUnderline = $("#first-drug").next();
+	var secondDrugUnderline = $("#second-drug").next();
+
+	var firstDrugValid = validateDrugName(firstDrugUnderline, firstDrugInput);
+	var secondDrugValid = validateDrugName(secondDrugUnderline, secondDrugInput);
+
+	console.log(firstDrugValid, secondDrugValid)
+
+	if (firstDrugValid && secondDrugValid) {
+		clearTimeout(submitTimeout);
+		submitTimeout = setTimeout(function() {
+			showIcon("loading");
+			getDrugCombo();
+		}, 600);
 	}
 }
 
@@ -119,9 +157,68 @@ function validateDrugName($underline, input) {
 				backgroundColor: "#FF3333"
 			});
 		}
+
+		return valid;
 	} else {
 		$underline.stop().animate({
 			backgroundColor: "#FFFFFF"
 		});
+	}
+
+	return false;
+}
+
+function showIcon(iconName) {
+	$("#safety-icon-container").children().hide();
+
+	$("#icon-" + iconName).fadeIn();
+}
+
+function getDrugCombo() {
+	var url = "http://tripbot.tripsit.me/api/tripsit/getInteraction";
+	var data = "?drugA=" + $("#first-drug").val() + "&drugB=" + $("#second-drug").val();
+	var proxy = "https://cors-anywhere.herokuapp.com/";
+
+	console.log("Getting drug combo...");
+	console.log(url + data);
+
+	$.getJSON(proxy + url + data, function(response) {
+		if (!response.err && response.data[0] != false) {
+			console.log("Finished.");
+
+			displayDrugCombo(response.data[0]);
+		} else {
+			console.log("Error!");
+		}
+
+		console.log(response)
+	});
+}
+
+function displayDrugCombo(data) {
+	console.log(data.status)
+
+	switch (data.status) {
+		case "Low Risk & Synergy":
+			showIcon("synergy");
+			break;
+		case "Low Risk & No Synergy":
+			showIcon("nosynergy");
+			break;
+		case "Low Risk & Decrease":
+			showIcon("decrease");
+			break;
+		case "Caution":
+			showIcon("caution");
+			break;
+		case "Unsafe":
+			showIcon("unsafe");
+			break;
+		case "Dangerous":
+			showIcon("dangerous");
+			break;
+		default:
+			showIcon("unknown");
+			break;
 	}
 }

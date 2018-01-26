@@ -6,29 +6,38 @@
 	<div id="interface-container">
 		<div id="symbol">
 			{% load static %}
-			<div class="safety-icon-container">
-				<img class="safety-icon" src="{% static 'img/unknown.svg' %}">
+			<div id="safety-icon-container">
+				<img id="icon-loading" class="safety-icon" src="{% static 'img/loading.svg' %}">
+				<img id="icon-unknown" class="safety-icon" src="{% static 'img/unknown.svg' %}">
+				<img id="icon-synergy" class="safety-icon" src="{% static 'img/synergy.svg' %}">
+				<img id="icon-nosynergy" class="safety-icon" src="{% static 'img/nosynergy.svg' %}">
+				<img id="icon-decrease" class="safety-icon" src="{% static 'img/decrease.svg' %}">
+				<img id="icon-caution" class="safety-icon" src="{% static 'img/caution.svg' %}">
+				<img id="icon-unsafe" class="safety-icon" src="{% static 'img/unsafe.svg' %}">
+				<img id="icon-dangerous" class="safety-icon" src="{% static 'img/dangerous.svg' %}">
 			</div>
 		</div>
 
 		<div id="interface">
 			Can I take&nbsp;
 
-			<div class="underlined-input">
-				<input class="drug-input" id="first-drug" type="text" maxlength="255" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-				<div class="underline">&nbsp;</div>
-				<div class="underline-shadow">&nbsp;</div>
-			</div>
+			<span style="white-space: nowrap;">
+				<div class="underlined-input">
+					<input class="drug-input" id="first-drug" type="text" maxlength="255" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+					<div class="underline noselect">&nbsp;</div>
+					<div class="underline-shadow noselect">&nbsp;</div>
+				</div>
 
-			&nbsp;with&nbsp;
+				&nbsp;with&nbsp;
 
-			<div class="underlined-input">
-				<input class="drug-input" id="second-drug" type="text" maxlength="255" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-				<div class="underline">&nbsp;</div>
-				<div class="underline-shadow">&nbsp;</div>
-			</div>
+				<div class="underlined-input">
+					<input class="drug-input" id="second-drug" type="text" maxlength="255" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+					<div class="underline noselect">&nbsp;</div>
+					<div class="underline-shadow noselect">&nbsp;</div>
+				</div>
 
-			?
+				?
+			</span>
 		</div>
 
 		<div id="information">&nbsp;</div>
