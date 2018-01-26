@@ -2,6 +2,7 @@ var autocompleteTarget;
 var validateFirstDrugTimeout;
 var validateSecondDrugTimeout;
 var submitTimeout;
+var checkingCombo;
 
 $(function() {
 	getAllDrugNames();
@@ -18,6 +19,15 @@ $(function() {
 	});
 
 	$("input").on("input", function() {
+		if (checkingCombo) {
+			checkingCombo = false;
+			showIcon("unknown");
+
+			$(document.body).animate({
+				backgroundColor: "#444"
+			}, 500);
+		}
+
 		showAutocompleteSuggestions();
 
 		if (this.id == "first-drug") {
@@ -123,8 +133,6 @@ function validateInputs() {
 	var firstDrugValid = validateDrugName(firstDrugUnderline, firstDrugInput);
 	var secondDrugValid = validateDrugName(secondDrugUnderline, secondDrugInput);
 
-	console.log(firstDrugValid, secondDrugValid)
-
 	if (firstDrugValid && secondDrugValid) {
 		clearTimeout(submitTimeout);
 		submitTimeout = setTimeout(function() {
@@ -168,27 +176,30 @@ function validateDrugName($underline, input) {
 	return false;
 }
 
-function showIcon(iconName) {
+function showIcon(iconName, skipTransition) {
 	$("#safety-icon-container").children().hide();
 
-	$("#icon-" + iconName).fadeIn();
+	if (skipTransition) {
+		$("#icon-" + iconName).show();
+	} else {
+		$("#icon-" + iconName).fadeIn();
+	}
 }
 
 function getDrugCombo() {
+	checkingCombo = true;
+
 	var url = "http://tripbot.tripsit.me/api/tripsit/getInteraction";
 	var data = "?drugA=" + $("#first-drug").val() + "&drugB=" + $("#second-drug").val();
 	var proxy = "https://cors-anywhere.herokuapp.com/";
 
 	console.log("Getting drug combo...");
-	console.log(url + data);
 
 	$.getJSON(proxy + url + data, function(response) {
-		if (!response.err && response.data[0] != false) {
+		if (!response.err) {
 			console.log("Finished.");
 
 			displayDrugCombo(response.data[0]);
-		} else {
-			console.log("Error!");
 		}
 
 		console.log(response)
@@ -196,29 +207,43 @@ function getDrugCombo() {
 }
 
 function displayDrugCombo(data) {
-	console.log(data.status)
+	if (checkingCombo) {
+		console.log(data.status)
 
-	switch (data.status) {
-		case "Low Risk & Synergy":
-			showIcon("synergy");
-			break;
-		case "Low Risk & No Synergy":
-			showIcon("nosynergy");
-			break;
-		case "Low Risk & Decrease":
-			showIcon("decrease");
-			break;
-		case "Caution":
-			showIcon("caution");
-			break;
-		case "Unsafe":
-			showIcon("unsafe");
-			break;
-		case "Dangerous":
-			showIcon("dangerous");
-			break;
-		default:
-			showIcon("unknown");
-			break;
+		var color = "#444";
+
+		switch (data.status) {
+			case "Low Risk & Synergy":
+				showIcon("synergy");
+				color = "#7F7";
+				break;
+			case "Low Risk & No Synergy":
+				showIcon("nosynergy");
+				color = "#7F7";
+				break;
+			case "Low Risk & Decrease":
+				showIcon("decrease");
+				color = "#66F";
+				break;
+			case "Caution":
+				showIcon("caution");
+				color = "#FB0";
+				break;
+			case "Unsafe":
+				showIcon("unsafe");
+				color = "#FB0";
+				break;
+			case "Dangerous":
+				showIcon("dangerous");
+				color = "#F11";
+				break;
+			default:
+				showIcon("unknown");
+				break;
+		}
+
+		$(document.body).animate({
+			backgroundColor: color
+		}, 500);
 	}
 }
