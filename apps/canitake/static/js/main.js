@@ -56,7 +56,15 @@ $(function() {
 	});
 
 	$(document).on("click", "#more-info-container", function() {
-		alert("Sorry, there's nothing here yet!");
+		$("html, body").animate({
+			scrollTop: $(document.body).height()
+		}, 1000);
+
+		setTimeout(function() {
+			$("html, body").animate({
+				scrollTop: 0
+			}, 1000);
+		}, 1500);
 	});
 
 	$("#first-drug").focus();
