@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 
-{% block content %}
-	<div id="autocomplete-container"></div>
+{% block content %} {% load static %}
+	<div id="autocomplete-container">
+		<img id="autocomplete-loading" src="{% static 'img/loading.svg' %}">
+		<div id="autocomplete"></div>
+	</div>
 
 	<div id="interface-page">
 		<div id="symbol">
-			{% load static %}
 			<div id="safety-icon-container">
 				<img id="icon-loading" class="safety-icon noselect" src="{% static 'img/loading.svg' %}">
 				<img id="icon-unknown" class="safety-icon noselect" src="{% static 'img/unknown2.svg' %}">

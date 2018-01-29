@@ -185,6 +185,11 @@ body {
 	position: absolute;
 }
 
+#autocomplete-loading {
+	display: none;
+	width: 7.5vmin;
+}
+
 .autocomplete-suggestion {
 	cursor: pointer;
 
