@@ -12,6 +12,11 @@
         -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
+	-webkit-user-drag: none;
+	-khtml-user-drag: none;
+	-moz-user-drag: none;
+	-o-user-drag: none;
+	user-drag: none;
 }
 
 body {
@@ -25,6 +30,68 @@ body {
 	background-color: #444;
 
 	overflow: hidden;
+}
+
+#navbar {
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 1.5vmin;
+	font-size: 0;
+}
+
+.navbar-link {
+	display: inline-block;
+	padding: 1vmin;
+	margin-right: 1vmin;
+
+	font-size: 2.25vmin;
+	color: white;
+
+	-webkit-border-radius: 0.65vmin;
+	-moz-border-radius: 0.65vmin;
+	border-radius: 0.65vmin;
+
+	background: transparent;
+
+	-webkit-transition: background 275ms ease;
+	-moz-transition: background 275ms ease;
+	-ms-transition: background 275ms ease;
+	-o-transition: background 275ms ease;
+	transition: background 275ms ease;
+}
+
+.navbar-link:link {
+	text-decoration: none;
+}
+
+.navbar-link:visited {
+	text-decoration: none;
+}
+
+.navbar-link:hover {
+	text-decoration: none;
+	background: rgba(255, 255, 255, 0.15);
+}
+
+.navbar-link:active {
+	text-decoration: none;
+}
+
+.navbar-link-selected {
+	background: rgba(255, 255, 255, 0.35);
+
+	-webkit-transition: unset !important;
+	-moz-transition: unset !important;
+	-ms-transition: unset !important;
+	-o-transition: unset !important;
+	transition: unset !important;
+
+	pointer-events: none;
+}
+
+.navbar-link-selected:hover {
+	background: rgba(255, 255, 255, 0.35) !important;
 }
 
 #vignette {

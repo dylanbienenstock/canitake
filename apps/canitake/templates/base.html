@@ -5,16 +5,27 @@
 		{% load static %}
 
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" />
+
 		<link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-color/2.1.2/jquery.color.min.js"></script>
+
 		<script src="{% static 'js/main.js' %}"></script>
+		<script src="{% static 'js/navbar.js' %}"></script>
 
 		<title>Can I Take...?</title>
 	</head>
 
 	<body>
+		<div id="navbar">
+			<a class="navbar-link noselect {% if page == 'home' %}navbar-link-selected{% endif %}" href="/">Home</a>
+			<a class="navbar-link noselect {% if page == 'contribute' %}navbar-link-selected{% endif %}" href="/">Contribute</a>
+			<a class="navbar-link noselect {% if page == 'donate' %}navbar-link-selected{% endif %}" href="/">Donate</a>
+			<a class="navbar-link noselect {% if page == 'about' %}navbar-link-selected{% endif %}" href="/">About</a>
+			<a class="navbar-link noselect {% if page == 'contact' %}navbar-link-selected{% endif %}" href="/">Contact</a>
+		</div>
+
 		{% block content %}{% endblock %}
 	</body>
 </html>
