@@ -237,12 +237,10 @@ body {
 	font-style: italic;
 }
 
-#more-info-container {
+#more-info-container, #back-container {
 	position: relative;
-
+	display: inline-block;
 	cursor: pointer;
-	display: none;
-	margin-top: 18.5vh;
 
 	-webkit-transition: transform 325ms ease;
 	-moz-transition: transform 325ms ease;
@@ -251,15 +249,20 @@ body {
 	transition: transform 325ms ease;
 }
 
+#more-info-container {
+	margin-top: 18.5vh;
+	display: none;
+}
+
 #more-info-container:hover {
 	transform: translateY(2vh);
 }
 
-#more-info {
+#more-info, #back {
 	font-size: 3.5vmin;
 }
 
-#more-info-button {
+#more-info-button, #back-button {
 	width: 6vmin;
 }
 
@@ -272,5 +275,37 @@ body {
 	width: 100vw;
 	height: 100vh;
 
+	color: white;
 	background-color: rgba(0, 0, 0, 0.5);
+}
+
+#more-info-column-container {
+	display: flex;
+	flex-flow: row nowrap;
+}
+
+#more-info-left-column {
+	display: inline-block;
+	flex: 1;
+
+	background-color: white;
+}
+
+#more-info-right-column {
+	display: inline-block;
+	flex: 0.5;
+	background-color: black;
+}
+
+#back-center {
+	text-align: center;
+}
+
+#back-container {
+	font-size: 0;
+	margin: 4vh 0 4vh 0;
+}
+
+#back-container:hover {
+	transform: translateY(-2vh);
 }

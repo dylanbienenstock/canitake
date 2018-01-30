@@ -95,12 +95,12 @@ $(function() {
 		$("html, body").animate({
 			scrollTop: $(document.body).height()
 		}, 1000);
+	});
 
-		setTimeout(function() {
-			$("html, body").animate({
-				scrollTop: 0
-			}, 1000);
-		}, 1500);
+	$(document).on("click", "#back-container", function() {
+		$("html, body").animate({
+			scrollTop: 0
+		}, 1000);
 	});
 
 	$("#first-drug").focus();
