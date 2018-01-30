@@ -37,7 +37,9 @@ function showIcon(iconName, skipTransition) {
 
 function displayInteraction(result) {
 	if (checkingCombo) {
-		$("#combo-status").text(result.status).stop().hide().fadeIn();
+		$("#combo-status").text(result.status).stop().animate({
+			opacity: 1
+		});
 		$("#more-info-container").stop().fadeIn().css("display", "inline-block");
 
 		var color = "#444";
@@ -76,4 +78,16 @@ function displayInteraction(result) {
 			backgroundColor: color
 		}, 500);
 	}
+}
+
+function setUnderlineColor(inputId, color) {
+	$("#" + inputId).next().animate({
+		backgroundColor: color
+	});
+}
+
+function displayLoader(inputId, visible) {
+	$("#autocomplete-loading-" + inputId).css({
+		visibility: visible ? "visible" : "hidden"
+	});
 }

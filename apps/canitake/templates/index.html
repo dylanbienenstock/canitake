@@ -2,7 +2,7 @@
 
 {% block content %} {% load static %}
 	<div id="autocomplete-container">
-		<img id="autocomplete-loading" src="{% static 'img/loading.svg' %}">
+		<!-- <img id="autocomplete-loading" src="{% static 'img/loading.svg' %}"> -->
 		<div id="autocomplete"></div>
 	</div>
 
@@ -24,18 +24,26 @@
 			Can I take&nbsp;
 
 			<span style="white-space: nowrap;">
-				<div class="underlined-input">
-					<input class="drug-input" id="first-drug" type="text" maxlength="255" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-					<div class="underline noselect">&nbsp;</div>
-					<div class="underline-shadow noselect">&nbsp;</div>
+				<div class="underlined-input-container">
+					<div class="underlined-input">
+						<input class="drug-input" id="first-drug" type="text" maxlength="255" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+						<div class="underline noselect">&nbsp;</div>
+						<div class="underline-shadow noselect">&nbsp;</div>
+					</div>
+
+					<img id="autocomplete-loading-first-drug" src="{% static 'img/loading.svg' %}">
 				</div>
 
 				&nbsp;with&nbsp;
 
-				<div class="underlined-input">
-					<input class="drug-input" id="second-drug" type="text" maxlength="255" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-					<div class="underline noselect">&nbsp;</div>
-					<div class="underline-shadow noselect">&nbsp;</div>
+				<div class="underlined-input-container">
+					<div class="underlined-input">
+						<input class="drug-input" id="second-drug" type="text" maxlength="255" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+						<div class="underline noselect">&nbsp;</div>
+						<div class="underline-shadow noselect">&nbsp;</div>
+					</div>
+
+					<img id="autocomplete-loading-second-drug" src="{% static 'img/loading.svg' %}">
 				</div>
 
 				?

@@ -87,10 +87,12 @@ class TripsitAPI {
 
 		console.log("(TRIPSIT) Getting drug interaction...");
 
-		$.getJSON(this.proxy + this.api + data, function(response) {
-			console.log(response);
-			deferred.resolve(response.data[0])
-		});
+		setTimeout(() => {
+			$.getJSON(this.proxy + this.api + data, function(response) {
+				console.log(response);
+				deferred.resolve(response.data[0])
+			});
+		}, this.fakeLatency());
 
 		promise.abort = function() {
 			deferred.reject();

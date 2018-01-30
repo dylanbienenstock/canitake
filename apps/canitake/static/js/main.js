@@ -6,6 +6,11 @@ var autocompleteTarget;
 var validateFirstDrugTimeout;
 var validateSecondDrugTimeout;
 var submitTimeout;
+var firstValid;
+var secondValid;
+var validatingFirst;
+var validatingSecond;
+var autocompleted;
 var checkingCombo;
 
 $(function() {
@@ -18,6 +23,20 @@ $(function() {
 		moveAutocompleteBoxTo(autocompleteTarget);
 
 		$("#autocomplete").empty();
+
+		if (!autocompleted) {
+			autocompleted = false;
+
+			if (!validatingFirst) {
+				displayLoader("first-drug", false);
+			}
+
+			if (!validatingSecond) {
+				displayLoader("second-drug", false);
+			}
+		}
+
+		$.abortLast("autocomplete");
 	});
 
 	$(window).resize(function() {
@@ -28,35 +47,46 @@ $(function() {
 		$("#autocomplete").empty();
 
 		if (checkingCombo) { // Reset the interface
-			checkingCombo = false;
-			showIcon("unknown");
-
-			$(document.body).animate({
-				backgroundColor: "#444"
-			}, 500);
-
-			$("#combo-status").text("Unknown").stop().fadeOut();
-			$("#more-info-container").stop().fadeOut();
+			resetInterface();
 		}
 
-		if (this.id == "first-drug") {
-			clearTimeout(validateFirstDrugTimeout);
+		$.abortLast("autocomplete");
 
-			validateFirstDrugTimeout = setTimeout(function() {
-				validateInputs();
-			}, 300);
+		var input = autocompleteTarget.val().trim()
+
+		if (input) {
+			if (this.id == "first-drug") {
+				clearTimeout(validateFirstDrugTimeout);
+
+				validateFirstDrugTimeout = setTimeout(function() {
+					validateInput("first-drug", input);
+				}, 300);
+			} else {
+				clearTimeout(validateSecondDrugTimeout);
+
+				validateSecondDrugTimeout = setTimeout(function() {
+					validateInput("second-drug", input);
+				}, 300);	
+			}
 		} else {
-			clearTimeout(validateSecondDrugTimeout);
+			var id = autocompleteTarget.attr("id");
 
-			validateSecondDrugTimeout = setTimeout(function() {
-				validateInputs();
-			}, 300);	
+			setUnderlineColor(id, "#FFFFFF")
+			displayLoader(id, false);
+
+			if (id == "first-drug") {
+				clearTimeout(validateFirstDrugTimeout);
+			} else {
+				clearTimeout(validateSecondDrugTimeout);
+			}
 		}
 	});
 
 	$(document).on("click", ".autocomplete-suggestion", function() {
+		autocompleted = true;
+
 		autocompleteTarget.val($(this).text());
-		validateInputs(autocompleteTarget.next(), $(this).text());
+		validateInput(autocompleteTarget.attr("id"), $(this).text());
 		$("#autocomplete").empty();
 		autocompleteTarget.focus();
 	});
@@ -76,6 +106,24 @@ $(function() {
 	$("#first-drug").focus();
 });
 
+function resetInterface() {
+	checkingCombo = false;
+	showIcon("unknown");
+
+	$(document.body).animate({
+		backgroundColor: "#444"
+	}, 500);
+
+	$("#more-info-container").stop().fadeOut();
+	$("#combo-status").stop().animate({
+		opacity: 0
+	});
+
+	clearTimeout(submitTimeout);
+	$.abortLast("interaction");
+	showIcon("unknown")
+}
+
 function getAutocompleteSuggestions(input) {
 	if (!Tripsit.allDrugNames) return;
 
@@ -87,75 +135,60 @@ function getAutocompleteSuggestions(input) {
 		var promise = $.onlyNewest("autocomplete", Aggregator.getAutocompleteSuggestions(input));
 
 		$.when(promise).then(function(suggestions) {
-			$("#autocomplete-loading").hide();
+			displayLoader(autocompleteTarget.attr("id"), false);
 
 			showAutocompleteSuggestions(input, suggestions);
 		});
 	}
 }
 
-function validateInputs() { // TO DO: clean up this monstrocity
-	var targetId = autocompleteTarget.attr("id");
-
-	var firstInput = $("#first-drug").val().trim();
-	var secondInput = $("#second-drug").val().trim();
-
-	var firstUnderline = $("#first-drug").next();
-	var secondUnderline = $("#second-drug").next();
-
-	var firstPromise = $.onlyNewest("first-validation", Aggregator.validateDrug(firstInput));
-	var secondPromise = $.onlyNewest("second-validation", Aggregator.validateDrug(secondInput));
-
-	if ((firstInput && targetId == "first-drug") || 
-		(secondInput && targetId == "second-drug")) {
-
-		$("#autocomplete-loading").show();
+function validateInput(id, input) {
+	if (id == "first-drug") {
+		validatingFirst = true;
+	} else {
+		validatingSecond = true;
 	}
 
-	if (!firstInput) {
-		firstUnderline.stop().animate({
-			backgroundColor: "#FFFFFF"
-		});
-	}
+	displayLoader(id, true);
 
-	if (!secondInput) {
-		secondUnderline.stop().animate({
-			backgroundColor: "#FFFFFF"
-		});
-	}
+	var promise = $.onlyNewest("validation-" + id, Aggregator.validateDrug(input));
 
-	$.when(firstPromise, secondPromise).done((firstValid, secondValid) => {
-		firstUnderline.stop().animate({
-			backgroundColor: firstInput ? (firstValid ? "#33FF33" : "#FF3333") : "#FFFFFF"
-		});
+	$.when(promise).then((valid) => {
+		if (valid || autocompleteTarget.attr("id") != id) {
+			displayLoader(id, false);
+		}
 
-		secondUnderline.stop().animate({
-			backgroundColor: secondInput ? (secondValid ? "#33FF33" : "#FF3333") : "#FFFFFF"
-		});
+		if (id == "first-drug") {
+			validatingFirst = false;
+			firstValid = valid;
+		} else {
+			validatingSecond = false;
+			secondValid = valid;
+		}
 
-		if ((firstValid && targetId == "first-drug") || 
-			(secondValid && targetId == "second-drug")) {
+		if (valid) {
+			setUnderlineColor(id, "#33FF33")
+		} else {
+			setUnderlineColor(id, "#FF3333")
 
-			$("#autocomplete-loading").hide();
+			getAutocompleteSuggestions();
 		}
 
 		if (firstValid && secondValid) {
 			clearTimeout(submitTimeout);
-			submitTimeout = setTimeout(() => {
-				showIcon("loading");
-				getInteraction(firstInput, secondInput);
-			}, 600);
-		} else if ((!firstValid && targetId == "first-drug") || 
-				   (!secondValid && targetId == "second-drug")) {
+			submitTimeout = setTimeout(function() {
+				var drugA = $("#first-drug").val().trim();
+				var drugB = $("#second-drug").val().trim();
 
-			getAutocompleteSuggestions();	
+				getInteraction(drugA, drugB);
+			}, 600);
 		}
 	});
 }
 
-
 function getInteraction(drugA, drugB) {
 	checkingCombo = true;
+	showIcon("loading");
 
 	var promise = $.onlyNewest("interaction", Aggregator.getInteraction(drugA, drugB));
 

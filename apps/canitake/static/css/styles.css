@@ -139,10 +139,17 @@ body {
 	box-sizing: border-box;
 }
 
-.underlined-input {
+.underlined-input-container {
+	position: relative;
+	top: 7.5vmin;
 	display: inline-block;
 	vertical-align: bottom;
 	line-height: 0;
+	pointer-events: none;
+}
+
+.underlined-input {
+	pointer-events: initial;
 }
 
 .underline {
@@ -164,6 +171,12 @@ body {
 	pointer-events: none;
 }
 
+#autocomplete-loading-first-drug, #autocomplete-loading-second-drug {
+	width: 7.5vmin;
+	visibility: hidden;
+	pointer-events: none;
+}
+
 .drug-input, #autocomplete-container {
 	outline: none;
 	border: none;
@@ -179,15 +192,12 @@ body {
 
 	white-space: nowrap;
 	text-overflow: ellipsis;
+
+	z-index: 2;
 }
 
 #autocomplete-container {
 	position: absolute;
-}
-
-#autocomplete-loading {
-	display: none;
-	width: 7.5vmin;
 }
 
 .autocomplete-suggestion {
@@ -222,7 +232,7 @@ body {
 }
 
 #combo-status {
-	display: none;
+	opacity: 0;
 	font-size: 9vmin;
 	font-style: italic;
 }
@@ -232,7 +242,7 @@ body {
 
 	cursor: pointer;
 	display: none;
-	margin-top: 22vh;
+	margin-top: 18.5vh;
 
 	-webkit-transition: padding-top 325ms ease;
 	-moz-transition: padding-top 325ms ease;

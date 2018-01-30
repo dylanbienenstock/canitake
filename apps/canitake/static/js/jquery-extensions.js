@@ -9,3 +9,9 @@ $.onlyNewest = function(name, promise) {
 
 	return promise;
 }
+
+$.abortLast = function(name) {
+	if (promises[name]) {
+		promises[name].abort();
+	}
+}
