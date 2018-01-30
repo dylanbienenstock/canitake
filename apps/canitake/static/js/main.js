@@ -1,5 +1,5 @@
 var Tripsit = new TripsitAPI();
-var RxNorm = null; // new RxNormAPI();
+var RxNorm = new RxNormAPI();
 var Aggregator = new APIAggregator(Tripsit, RxNorm);
 
 var autocompleteTarget;

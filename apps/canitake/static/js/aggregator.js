@@ -8,9 +8,27 @@ class APIAggregator {
 		var deferred = $.Deferred();
 		var promise = deferred.promise();
 		var tripsitPromise = this.Tripsit.getAutocompleteSuggestions(input);
+		var rxnormPromise = this.RxNorm.getAutocompleteSuggestions(input);
 
-		$.when(tripsitPromise).done((suggestions) => {
-			deferred.resolve(suggestions);
+		$.when(tripsitPromise, rxnormPromise).done((tsSuggestions, rxSuggestions) => {
+			var data = tsSuggestions.concat(rxSuggestions);
+			var searcher = new FuzzySearch({ source: data });
+			var result = searcher.search(input);
+			result = result.filter((el, i, arr) => arr.indexOf(el) === i);
+
+			if (result.length > 0) {
+				deferred.resolve(result);
+			} else {
+				var suggestions = [];
+
+				tsSuggestions.forEach(function(drug) {
+					if (drug.startsWith(input)) {
+						suggestions.push(drug);
+					}
+				});
+
+				deferred.resolve(suggestions);
+			}
 		});
 
 		promise.abort = function() {
@@ -25,9 +43,10 @@ class APIAggregator {
 		var deferred = $.Deferred();
 		var promise = deferred.promise();
 		var tripsitPromise = this.Tripsit.validateDrug(input);
+		var rxnormPromise = this.RxNorm.validateDrug(input);
 
-		$.when(tripsitPromise).done((valid) => {
-			deferred.resolve(valid);
+		$.when(tripsitPromise, rxnormPromise).done((tsValid, rxValid) => {
+			deferred.resolve(tsValid || rxValid);
 		});
 
 		promise.abort = function() {

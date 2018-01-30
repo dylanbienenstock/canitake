@@ -20,7 +20,7 @@ function showAutocompleteSuggestions(input, suggestions) {
 		}
 
 		$("#autocomplete").append(`
-			<p class="autocomplete-suggestion noselect">${suggestions[i]}</p>
+			<p class="autocomplete-suggestion noselect">${suggestions[i].toLowerCase()}</p>
 		`);
 	}
 }

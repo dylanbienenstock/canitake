@@ -35,17 +35,9 @@ class TripsitAPI {
 		var deferred = $.Deferred();
 		var promise = deferred.promise();
 
-		setTimeout(() => {
-			var suggestions = [];
-
-			this.allDrugNames.forEach(function(drug) {
-				if (drug.startsWith(input)) {
-					suggestions.push(drug);
-				}
-			});
-
-			deferred.resolve(suggestions);
-		}, this.fakeLatency());
+		setTimeout(function() {
+			deferred.resolve(this.allDrugNames);
+		}.bind(this), this.fakeLatency());
 
 		promise.abort = function() {
 			deferred.reject();
@@ -87,14 +79,15 @@ class TripsitAPI {
 
 		console.log("(TRIPSIT) Getting drug interaction...");
 
-		setTimeout(() => {
-			$.getJSON(this.proxy + this.api + data, function(response) {
+		var request = $.getJSON(this.proxy + this.api + data, function(response) {
+			setTimeout(function() {
 				console.log(response);
 				deferred.resolve(response.data[0])
-			});
-		}, this.fakeLatency());
+			}.bind(this), this.fakeLatency());
+		}.bind(this));
 
 		promise.abort = function() {
+			request.abort();
 			deferred.reject();
 		}
 
