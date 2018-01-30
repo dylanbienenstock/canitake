@@ -168,9 +168,9 @@ function validateInput(id, input) {
 
 		if (valid) {
 			setUnderlineColor(id, "#33FF33")
+			$("#autocomplete").empty();
 		} else {
 			setUnderlineColor(id, "#FF3333")
-
 			getAutocompleteSuggestions();
 		}
 
