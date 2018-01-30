@@ -92,17 +92,32 @@ $(function() {
 	});
 
 	$(document).on("click", "#more-info-container", function() {
+		$("#more-info-container").fadeOut(500);
+		$("#back-container").hide().fadeIn(1250);
+
 		$("html, body").animate({
 			scrollTop: $(document.body).height()
 		}, 1000);
 	});
 
 	$(document).on("click", "#back-container", function() {
+		$("#back-container").fadeOut(500);
+		$("#more-info-container").hide().fadeIn(1250);
+
 		$("html, body").animate({
 			scrollTop: 0
 		}, 1000);
 	});
 
+	$(document.body).resize(function() {
+		$("#more-info-link-container").center();
+	});
+
+	$("html, body").animate({
+		scrollTop: 0
+	}, 500);
+
+	$("#more-info-link-container").center();
 	$("#first-drug").focus();
 });
 
@@ -188,7 +203,11 @@ function validateInput(id, input) {
 
 function getInteraction(drugA, drugB) {
 	checkingCombo = true;
+	
 	showIcon("loading");
+	$("#more-info-link-first-drug").textCapitalized(drugA);
+	$("#more-info-link-second-drug").textCapitalized(drugB);
+	$("#more-info-link-container").center();
 
 	var promise = $.onlyNewest("interaction", Aggregator.getInteraction(drugA, drugB));
 
