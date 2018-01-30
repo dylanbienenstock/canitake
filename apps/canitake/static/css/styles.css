@@ -38,6 +38,8 @@ body {
 	left: 0;
 	padding: 1.5vmin;
 	font-size: 0;
+
+	z-index: 3;
 }
 
 .navbar-link {
@@ -294,7 +296,6 @@ body {
 	height: 100vh;
 
 	color: white;
-	/*background-color: rgba(0, 0, 0, 0.5);*/
 }
 
 #more-info-content {
@@ -314,12 +315,6 @@ body {
 	font-weight: bold;
 	text-shadow: var(--shadow) rgba(0, 0, 0, 0.2);
 	opacity: 1;
-
-/*	-webkit-transition: opacity 150ms ease;
-	-moz-transition: opacity 150ms ease;
-	-ms-transition: opacity 150ms ease;
-	-o-transition: opacity 150ms ease;
-	transition: opacity 150ms ease;*/
 }
 
 .more-info-link:hover {

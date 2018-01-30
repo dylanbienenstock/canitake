@@ -9,14 +9,15 @@ $(function() {
 	$(document.body).mousemove(function(event) {
 		navbarWidth = $navbar.outerWidth();
 		navbarHeight = $navbar.outerHeight();
+		navbarY = $navbar.offset().top;
 
 		var distance = pointDistanceToLine(
 			event.pageX,
 			event.pageY,
 			0,
-			navbarHeight / 2,
+			navbarHeight / 2 + navbarY,
 			navbarWidth,
-			navbarHeight / 2
+			navbarHeight / 2 + navbarY
 		);
 
 		if (distance < navbarWidth * 0.2) {
