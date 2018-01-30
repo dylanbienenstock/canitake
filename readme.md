@@ -15,7 +15,7 @@ Get reliable information about medication / drug interactions with ease.
 ```
 pip install django
 git clone https://github.com/dylanbienenstock/canitake.git
-python canitake/main/manage.py runserver
+python canitake/manage.py runserver
 ```
 
-2. Navigate to localhost:8000 in ~~your browser of choice~~ Google Chrome.
+2. Navigate to localhost:8000 in your browser of choice.
