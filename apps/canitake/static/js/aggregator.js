@@ -33,6 +33,7 @@ class APIAggregator {
 
 		promise.abort = function() {
 			tripsitPromise.abort();
+			rxnormPromise.abort();
 			deferred.reject();
 		}
 
@@ -51,6 +52,7 @@ class APIAggregator {
 
 		promise.abort = function() {
 			tripsitPromise.abort();
+			rxnormPromise.abort();
 			deferred.reject();
 		}
 
@@ -61,13 +63,18 @@ class APIAggregator {
 		var deferred = $.Deferred();
 		var promise = deferred.promise();
 		var tripsitPromise = this.Tripsit.getInteraction(drugA, drugB);
+		var rxnormPromise = this.RxNorm.getInteraction(drugA, drugB);
 
-		$.when(tripsitPromise).done((result) => {
-			deferred.resolve(result);
+		$.when(tripsitPromise, rxnormPromise).done((tsResult, rxResult) => {
+			deferred.resolve({
+				Tripsit: tsResult,
+				RxNorm: rxResult
+			});
 		});
 
 		promise.abort = function() {
 			tripsitPromise.abort();
+			rxnormPromise.abort();
 			deferred.reject();
 		}
 

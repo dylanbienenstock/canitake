@@ -35,16 +35,18 @@ function showIcon(iconName, skipTransition) {
 	}
 }
 
-function displayInteraction(result) {
+function displayInteraction(interactionList) {
+	var interaction = interactionList.Tripsit || interactionList.RxNorm || {};
+
 	if (checkingCombo) {
-		$("#combo-status").text(result.status).stop().animate({
+		$("#combo-status").text(interaction.status || "Unknown").stop().animate({
 			opacity: 1
 		});
 		$("#more-info-container").stop().fadeIn().css("display", "inline-block");
 
 		var color = "#444";
 
-		switch (result.status) {
+		switch (interaction.status) {
 			case "Low Risk & Synergy":
 				showIcon("synergy");
 				color = "#7F7";

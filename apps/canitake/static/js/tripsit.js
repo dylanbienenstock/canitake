@@ -62,7 +62,7 @@ class TripsitAPI {
 			}
 
 			deferred.resolve(false);
-		}, this.fakeLatency());
+		}, 0);
 
 		promise.abort = function() {
 			deferred.reject();
@@ -79,12 +79,25 @@ class TripsitAPI {
 
 		console.log("(TRIPSIT) Getting drug interaction...");
 
-		var request = $.getJSON(this.proxy + this.api + data, function(response) {
-			setTimeout(function() {
-				console.log(response);
-				deferred.resolve(response.data[0])
-			}.bind(this), this.fakeLatency());
-		}.bind(this));
+		var request = $.getJSON(this.proxy + this.api + data, (response) => {
+			if (response && !response.err) {
+				if (response.data) {
+					var interaction = response.data[0];
+
+					deferred.resolve(new Interaction({
+						drugA: drugA,
+						drubB: drugB,
+						status: interaction.status,
+						comment: interaction.note,
+						source: "Tripsit"
+					}));
+				}
+			} else {
+				deferred.resolve(null);
+			}
+
+			console.log("(TRIPSIT) Finished.");
+		});
 
 		promise.abort = function() {
 			request.abort();
