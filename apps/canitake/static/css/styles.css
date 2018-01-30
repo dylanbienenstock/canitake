@@ -244,15 +244,15 @@ body {
 	display: none;
 	margin-top: 18.5vh;
 
-	-webkit-transition: padding-top 325ms ease;
-	-moz-transition: padding-top 325ms ease;
-	-ms-transition: padding-top 325ms ease;
-	-o-transition: padding-top 325ms ease;
-	transition: padding-top 325ms ease;
+	-webkit-transition: transform 325ms ease;
+	-moz-transition: transform 325ms ease;
+	-ms-transition: transform 325ms ease;
+	-o-transition: transform 325ms ease;
+	transition: transform 325ms ease;
 }
 
 #more-info-container:hover {
-	padding-top: 2vh;
+	transform: translateY(2vh);
 }
 
 #more-info {
