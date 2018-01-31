@@ -94,7 +94,7 @@ function displayLoader(inputId, visible) {
 	});
 }
 
-function floatInfoSelection(selection) {
+function floatInfoSelection(selection, callback) {
 	floatingSelection = $("#more-info-selection");
 
 	$(".more-info-link").not(selection).animate({
@@ -113,8 +113,21 @@ function floatInfoSelection(selection) {
 			floatingSelection.css({ visibility: "visible" })
 			floatingSelection.velocity({ translateY: 0 }, 650, function() {
 				$("#more-info-link-container").hide();
+				callback();
 			});
 		})
 		.finish()
+	});
+}
+
+function showDrugView(selection) {
+	floatInfoSelection(selection, function() {
+		if (selection.id == "more-info-link-first-drug") {
+			$("#drug-view-container").fadeIn().css({ display: "flex" });
+
+			$(".drug-view").each(function() {
+				$(this).center();
+			});
+		}
 	});
 }

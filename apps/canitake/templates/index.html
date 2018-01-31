@@ -78,6 +78,68 @@
 
 		<div id="more-info-content">
 			<div id="more-info-selection">&nbsp;</div>
+
+			<div id="drug-view-container">
+				<div class="drug-view-column">
+					<div class="drug-view-row">
+						<div class="drug-view" id="drug-view-section-dose">
+							<h1 class="drug-view-title">Dose</h1>
+
+							<div class="drug-view-roa-container" id="drug-view-roa-container-dose">
+								<button class="drug-view-roa">Oral</button>
+								<button class="drug-view-roa">Insufflated</button>
+								<button class="drug-view-roa">Intramuscular</button>	
+							</div>
+
+							<p class="drug-view-info">Light:&nbsp;<span id="drug-view-light-dose">1-2mg</span></p>
+							<p class="drug-view-info">Common:&nbsp;<span id="drug-view-common-dose">2-3mg</span></p>
+							<p class="drug-view-info">Heavy:&nbsp;<span id="drug-view-heavy-dose">3-4mg</span></p>
+						</div>
+					</div>
+
+					<div class="drug-view-row">
+						<div class="drug-view" id="drug-view-section-effects">
+							<h1 class="drug-view-title">Effects</h1>
+							<div id="drug-view-category-container">
+								<span class="drug-view-category">Common</span>
+								<span class="drug-view-category">Stimulant</span>
+								<span class="drug-view-category">Tentative</span>
+							</div>
+
+							<div id="drug-view-effect-container">
+								<p class="drug-view-info">Something</p>
+								<p class="drug-view-info">Something</p>
+								<p class="drug-view-info">Something</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="drug-view-column">
+					<div class="drug-view-row">
+						<div class="drug-view" id="drug-view-section-duration">
+							<h1 class="drug-view-title">Duration</h1>
+
+							<div class="drug-view-roa-container" id="drug-view-roa-container-dose">
+								<button class="drug-view-roa">Oral</button>
+								<button class="drug-view-roa">Insufflated</button>
+								<button class="drug-view-roa">Intramuscular</button>	
+							</div>
+
+							<p class="drug-view-info">Onset:&nbsp;<span id="drug-view-onset">1-2 hours</span></p>
+							<p class="drug-view-info">Duration:&nbsp;<span id="drug-view-duration">6-8 hours</span></p>
+							<p class="drug-view-info">After-effects:&nbsp;<span id="drug-view-after-effects">1-12 hours</span></p>
+						</div>
+					</div>
+
+					<div class="drug-view-row">
+						<div class="drug-view" id="drug-view-section-note">
+							<h1 class="drug-view-title">Note</h1>
+							<p class="drug-view-info">The doses provided are for recreational usage. For use as a sleep aid the dose ranges from 25-100mg, or as specified on the product packaging.</p>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 {% endblock %}

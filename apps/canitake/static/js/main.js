@@ -111,6 +111,9 @@ $(function() {
 
 	$(document.body).resize(function() {
 		$("#more-info-link-container").center();
+		$(".drug-view").each(function() {
+			$(this).center();
+		});
 	});
 
 	$("html, body").animate({
@@ -118,12 +121,17 @@ $(function() {
 	}, 500);
 
 	$(".more-info-link").click(function() {
-		floatInfoSelection(this);
+		$("#more-info-link-container").css({ pointerEvents: "none" });
+		$(this).css({ opacity: 1 })
+		showDrugView(this);
 	});
 
 	/////////////////////
 
 	$("#more-info-link-container").center();
+	$(".drug-view").each(function() {
+		$(this).center();
+	});
 	$("#first-drug").focus();
 });
 
