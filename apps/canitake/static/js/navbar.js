@@ -1,9 +1,11 @@
+var navbarOpacity = 0.45;
+
 $(function() {
 	$navbar = $("#navbar");
 	navbarVisible = false;
 
 	$navbar.stop().animate({
-		opacity: 0.35
+		opacity: navbarOpacity
 	}, 1000);
 
 	$(document.body).mousemove(function(event) {
@@ -32,7 +34,7 @@ $(function() {
 			navbarVisible = false;
 
 			$navbar.stop().animate({
-				opacity: 0.35
+				opacity: navbarOpacity
 			}, 225);
 		}
 	});

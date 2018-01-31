@@ -48,6 +48,7 @@ body {
 	margin-right: 1vmin;
 
 	font-size: 2.25vmin;
+	font-weight: bold;
 	color: white;
 
 	-webkit-border-radius: 0.65vmin;
@@ -73,7 +74,7 @@ body {
 
 .navbar-link:hover {
 	text-decoration: none;
-	background: rgba(255, 255, 255, 0.15);
+	background: rgba(255, 255, 255, 0.2);
 }
 
 .navbar-link:active {
@@ -255,7 +256,7 @@ body {
 
 #more-info-container {
 	margin-top: 18.5vh;
-	/*display: none;*/
+	display: none;
 }
 
 #more-info-container:hover {
@@ -311,12 +312,18 @@ body {
 .more-info-link {
 	cursor: pointer;
 
-	font-size: 10vmin;
-	font-weight: bold;
+	font-size: 9vmin;
 	text-shadow: var(--shadow) rgba(0, 0, 0, 0.2);
 	opacity: 1;
 }
 
 .more-info-link:hover {
 	opacity: 0.5;
+}
+
+#more-info-selection {
+	position: relative;
+	font-size: 9vmin;
+	text-align: center;
+	text-shadow: var(--shadow) rgba(0, 0, 0, 0.2);
 }

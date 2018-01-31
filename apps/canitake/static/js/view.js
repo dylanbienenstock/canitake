@@ -93,3 +93,28 @@ function displayLoader(inputId, visible) {
 		visibility: visible ? "visible" : "hidden"
 	});
 }
+
+function floatInfoSelection(selection) {
+	floatingSelection = $("#more-info-selection");
+
+	$(".more-info-link").not(selection).animate({
+		opacity: 0
+	}, 1000, function() {
+		var a = $("#more-info-content").offset().top
+		var b = $(selection).offset().top
+		var y = b - a;
+
+		floatingSelection.css({ visibility: "hidden" })
+		.text($(selection).text())
+		.velocity({ translateY: 0 })
+		.finish()
+		.velocity({ translateY: y }, function() {
+			$(selection).css({ opacity: 0 });
+			floatingSelection.css({ visibility: "visible" })
+			floatingSelection.velocity({ translateY: 0 }, 650, function() {
+				$("#more-info-link-container").hide();
+			});
+		})
+		.finish()
+	});
+}

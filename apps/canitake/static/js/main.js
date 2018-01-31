@@ -117,6 +117,12 @@ $(function() {
 		scrollTop: 0
 	}, 500);
 
+	$(".more-info-link").click(function() {
+		floatInfoSelection(this);
+	});
+
+	/////////////////////
+
 	$("#more-info-link-container").center();
 	$("#first-drug").focus();
 });
