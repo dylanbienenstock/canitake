@@ -29,7 +29,7 @@ body {
 
 	background-color: #444;
 
-	overflow-x: hidden;
+	overflow: hidden;
 }
 
 h1, p {
@@ -364,6 +364,7 @@ h1, p {
 }
 
 .drug-view-info {
+	display: none;
 	font-size: 2.5vmin;
 	text-shadow: var(--shadow) rgba(0, 0, 0, 0.2);
 }
@@ -379,6 +380,8 @@ h1, p {
 	padding: 0.75vmin;
 	border: 0.2vmin solid white;
 
+	border-right: none;
+
 	text-shadow: var(--shadow) rgba(0, 0, 0, 0.2);
 	-webkit-box-shadow: var(--shadow) 0px rgba(0, 0, 0, 0.15);
 	-moz-box-shadow: var(--shadow) 0px rgba(0, 0, 0, 0.15);
@@ -393,8 +396,6 @@ h1, p {
 	border-top-left-radius: 2vmin;
 	border-bottom-left-radius: 2vmin;
 
-	border-right: none;
-
 	background-color: rgba(255, 255, 255, 0.2);
 }
 
@@ -406,7 +407,7 @@ h1, p {
 	border-top-right-radius: 2vmin;
 	border-bottom-right-radius: 2vmin;
 
-	border-left: none;
+	border-right: 0.2vmin solid white;
 }
 
 .drug-view-roa:hover {
@@ -414,6 +415,7 @@ h1, p {
 }
 
 #drug-view-category-container, .drug-view-roa-container {
+	display: none;
 	font-size: 0;
 	margin-bottom: 1vmin;
 }
@@ -440,4 +442,9 @@ h1, p {
 
 #drug-view-section-note {
 	max-width: 30vw;
+}
+
+#drug-view-loading {
+	position: absolute;
+	display: none;
 }

@@ -92,8 +92,8 @@ $(function() {
 	});
 
 	$(document).on("click", "#more-info-container", function() {
-		$("#more-info-container").fadeOut(500);
-		$("#back-container").hide().fadeIn(1250);
+		$("#more-info-container").animate({ opacity: 0 }, 500);
+		$("#back-container").animate({ opacity: 1 }, 1250);
 
 		$("html, body").animate({
 			scrollTop: $(document.body).height()
@@ -101,8 +101,8 @@ $(function() {
 	});
 
 	$(document).on("click", "#back-container", function() {
-		$("#back-container").fadeOut(500);
-		$("#more-info-container").hide().fadeIn(1250);
+		$("#back-container").animate({ opacity: 0 }, 500);
+		$("#more-info-container").animate({ opacity: 1 }, 1250);
 
 		$("html, body").animate({
 			scrollTop: 0
@@ -110,30 +110,31 @@ $(function() {
 	});
 
 	$(document.body).resize(function() {
-		$("#more-info-link-container").center();
-		$(".drug-view").each(function() {
-			$(this).center();
-		});
+		centerInterface();
 	});
 
 	$("html, body").animate({
 		scrollTop: 0
 	}, 500);
 
-	$(".more-info-link").click(function() {
+	$(".more-info-link").click(function(event) {
 		$("#more-info-link-container").css({ pointerEvents: "none" });
 		$(this).css({ opacity: 1 })
+
 		showDrugView(this);
 	});
 
-	/////////////////////
+	centerInterface();
+	$("#first-drug").focus();
+});
 
+function centerInterface() {
 	$("#more-info-link-container").center();
 	$(".drug-view").each(function() {
 		$(this).center();
 	});
-	$("#first-drug").focus();
-});
+	$("#drug-view-loading").center();
+}
 
 function resetInterface() {
 	checkingCombo = false;
@@ -226,4 +227,12 @@ function getInteraction(drugA, drugB) {
 	var promise = $.onlyNewest("interaction", Aggregator.getInteraction(drugA, drugB));
 
 	$.when(promise).then(displayInteraction);
+}
+
+function getDrugInfo(drug) {
+	var promise = $.onlyNewest("drug-info", Aggregator.getDrugInfo(drug));
+
+	$.when(promise).then((info) => {
+		populateDrugView(info);
+	});
 }

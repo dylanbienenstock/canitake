@@ -95,7 +95,8 @@ function displayLoader(inputId, visible) {
 }
 
 function floatInfoSelection(selection, callback) {
-	floatingSelection = $("#more-info-selection");
+	var floatingSelection = $("#more-info-selection");
+	var callbackFired = false;
 
 	$(".more-info-link").not(selection).animate({
 		opacity: 0
@@ -112,22 +113,116 @@ function floatInfoSelection(selection, callback) {
 			$(selection).css({ opacity: 0 });
 			floatingSelection.css({ visibility: "visible" })
 			floatingSelection.velocity({ translateY: 0 }, 650, function() {
-				$("#more-info-link-container").hide();
-				callback();
+				if (!callbackFired) {
+					callbackFired = true;
+
+					$("#more-info-link-container").hide();
+					callback();
+				}
 			});
 		})
 		.finish()
 	});
 }
 
+function showDoses(dose) {
+	if (dose.Threshold) {
+		$("#drug-view-threshold-dose").show().text("Threshold: " + dose.Threshold);
+	}
+
+	if (dose.Light) {
+		$("#drug-view-light-dose").show().text("Light: " + dose.Light);
+	}
+
+	if (dose.Common) {
+		$("#drug-view-common-dose").show().text("Common: " + dose.Common);
+	}
+
+	if (dose.Strong) {
+		$("#drug-view-strong-dose").show().text("Strong: " + dose.Strong);
+	}
+
+	if (dose.Heavy) {
+		$("#drug-view-heavy-dose").show().text("Heavy: " + dose.Heavy);
+	}
+
+	for (var doseType in dose) {
+		if (!["Threshold", "Light", "Common", "Strong", "Heavy"].includes(doseType)) {
+
+			$(`
+				<p class="drug-view-info">${doseType}: ${dose[doseType]}</p>
+
+			`).prependTo($("#drug-view-section-dose")).show();
+		}
+	}
+}
+
+function populateDrugView(info) {
+	$("#drug-view-container").fadeIn().css({ display: "flex" });
+	$("#drug-view-loading").hide();
+	centerInterface();
+
+	console.log(info);
+
+	var ROA = Object.keys(info.dose)[0];
+
+	if (info.multipleROAs) {
+		$("#drug-view-title-dose").text("Dose");
+		$("#drug-view-roa-container-dose").show();
+
+		info.ROAs.forEach(function(ROA) {
+			console.log(ROA);
+
+			$(`
+				<button class="drug-view-roa">${ROA}</button> 
+
+			`).appendTo($("#drug-view-roa-container-dose"))
+			.click(function() {
+				showDoses(info.dose[ROA]);
+			});
+		});
+	} else {
+		$("#drug-view-title-dose").text("Dose (" + ROA + ")");
+	}
+
+	showDoses(info.dose[ROA]);
+
+	if (info.onset) {
+		$("#drug-view-onset").show().text("Onset: " + info.onset);
+	}
+
+	if (info.duration) {
+		$("#drug-view-duration").show().text("Duration: " + info.duration);
+	}
+
+	if (info.aftereffects) {
+		$("#drug-view-aftereffects").show().text("After-effects: " + info.aftereffects);
+	}
+
+	if (info.categories) {
+		info.categories.forEach((category) => {
+			$("#drug-view-category-container").show().append(`
+				<span class="drug-view-category">${category}</span>
+			`);
+		});
+	}
+
+	if (info.effects) {
+		//////////////////////////////////////////////////////////////////
+	}
+
+	if (info.note) {
+		$("#drug-info-note").show().text(info.note);
+	}
+
+	centerInterface();
+}
+
 function showDrugView(selection) {
 	floatInfoSelection(selection, function() {
-		if (selection.id == "more-info-link-first-drug") {
-			$("#drug-view-container").fadeIn().css({ display: "flex" });
-
-			$(".drug-view").each(function() {
-				$(this).center();
-			});
+		if (selection.id == "more-info-link-first-drug" || selection.id == "more-info-link-second-drug") {
+			$("#drug-view-loading").show().center();
+			getDrugInfo($(selection).text());
 		}
 	});
 }

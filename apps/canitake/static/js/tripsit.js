@@ -106,4 +106,68 @@ class TripsitAPI {
 
 		return promise;
 	}
+
+	getDrugInfo(drug) {
+		var deferred = $.Deferred();
+		var promise = deferred.promise();
+
+		var data = "getDrug?name=" + drug;
+
+		console.log("(TRIPSIT) Getting drug information...");
+
+		var request = $.getJSON(this.proxy + this.api + data, (response) => {
+			if (response && !response.err) {
+				if (response.data) {
+					console.log(response)
+
+					var info = response.data[0];
+					var multipleROAs = !info.formatted_duration.hasOwnProperty("value");
+
+					if (multipleROAs) {
+						for (var ROA in response.data[0].formatted_onset) {
+							info.formatted_onset[ROA] = info.formatted_onset[ROA].value
+													 + " " + info.formatted_onset[ROA]._unit;
+						}
+
+						for (var ROA in response.data[0].formatted_duration) {
+							info.formatted_duration[ROA] = info.formatted_duration[ROA].value
+													 + " " + info.formatted_duration[ROA]._unit;
+						}
+
+						for (var ROA in response.data[0].formatted_aftereffects) {
+							info.formatted_aftereffects[ROA] = info.formatted_aftereffects[ROA].value
+													 + " " + info.formatted_aftereffects[ROA]._unit;
+						}
+					} else {
+						info.formatted_onset = info.formatted_onset.value + " " + info.formatted_onset._unit;
+						info.formatted_duration = info.formatted_duration.value + " " + info.formatted_duration._unit;
+						info.formatted_aftereffects = info.formatted_aftereffects.value + " " + info.formatted_aftereffects._unit;
+					}
+
+					var infoResponse = {
+						categories: info.categories,
+						multipleROAs: multipleROAs,
+						ROAs: Object.keys(info.formatted_dose),
+						dose: info.formatted_dose,
+						onset: info.formatted_onset,
+						duration: info.formatted_duration,
+						aftereffects: info.formatted_aftereffects,
+						effects: info.formatted_effects,
+						note: info.dose_note ? info.dose_note.replace(/NOTE:/gi , "") : null
+					};
+
+					deferred.resolve(infoResponse);
+				}
+			}
+
+			console.log("(TRIPSIT) Finished.");
+		});
+
+		promise.abort = function() {
+			request.abort();
+			deferred.reject();
+		}
+
+		return promise;
+	}
 }

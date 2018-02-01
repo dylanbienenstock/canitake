@@ -80,4 +80,21 @@ class APIAggregator {
 
 		return promise;
 	}
+
+	getDrugInfo(drug) {
+		var deferred = $.Deferred();
+		var promise = deferred.promise();
+		var tripsitPromise = this.Tripsit.getDrugInfo(drug);
+
+		$.when(tripsitPromise).done((info) => {
+			deferred.resolve(info);
+		});
+
+		promise.abort = function() {
+			tripsitPromise.abort();
+			deferred.reject();
+		}
+
+		return promise;
+	}
 }

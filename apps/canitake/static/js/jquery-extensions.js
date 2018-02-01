@@ -18,6 +18,8 @@ $.abortLast = function(name) {
 
 $.fn.extend({
 	center: function() {
+		if ($(this).css("display") == "none") return;
+
 		$(this).css({
 			display: "inline-block"
 		}).offset({
