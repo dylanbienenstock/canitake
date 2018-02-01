@@ -101,12 +101,16 @@ $(function() {
 	});
 
 	$(document).on("click", "#back-container", function() {
-		$("#back-container").animate({ opacity: 0 }, 500);
-		$("#more-info-container").animate({ opacity: 1 }, 1250);
+		if (!window.inMoreInfoView) {
+			$("#back-container").animate({ opacity: 0 }, 500);
+			$("#more-info-container").animate({ opacity: 1 }, 1250);
 
-		$("html, body").animate({
-			scrollTop: 0
-		}, 1000);
+			$("html, body").animate({
+				scrollTop: 0
+			}, 1000);
+		} else if (window.backButtonTransitioned) {
+			floatInfoSelectionDown()
+		}
 	});
 
 	$(document.body).resize(function() {
@@ -233,6 +237,8 @@ function getDrugInfo(drug) {
 	var promise = $.onlyNewest("drug-info", Aggregator.getDrugInfo(drug));
 
 	$.when(promise).then((info) => {
+		showBackButton(true);
+
 		populateDrugView(info);
 	});
 }

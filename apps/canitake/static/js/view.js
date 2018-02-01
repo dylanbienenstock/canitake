@@ -94,15 +94,41 @@ function displayLoader(inputId, visible) {
 	});
 }
 
-function floatInfoSelection(selection, callback) {
+function hideBackButton(inMoreInfoView) {
+	window.inMoreInfoView = inMoreInfoView;
+	window.backButtonTransitioned = false;
+
+	$("#back-container").animate({ opacity: 0 }, 1000);
+}
+
+function showBackButton(inMoreInfoView) {
+	$("#back-button").hide();
+	$(inMoreInfoView ? "#more-info-back-button" : "#back-button").show();
+	$(inMoreInfoView ? "#back-button" : "#more-info-back-button").hide();
+	$("#back-container").animate({ opacity: 1 }, 1000);
+
+	window.backButtonTransitioned = true;
+}
+
+function setBackButtonMode(inMoreInfoView) {
+	$("#back-container")
+	.removeClass(inMoreInfoView ? "back-button-hover" : "more-info-back-button-hover")
+	.addClass(inMoreInfoView ? "more-info-back-button-hover" : "back-button-hover");
+}
+
+function floatInfoSelectionUp(selection, callback) {
+	window.moreInfoLinkSelection = selection;
+
 	var floatingSelection = $("#more-info-selection");
 	var callbackFired = false;
+
+	hideBackButton(true);
 
 	$(".more-info-link").not(selection).animate({
 		opacity: 0
 	}, 1000, function() {
-		var a = $("#more-info-content").offset().top
-		var b = $(selection).offset().top
+		var a = $("#more-info-content").offset().top;
+		var b = $(selection).offset().top;
 		var y = b - a;
 
 		floatingSelection.css({ visibility: "hidden" })
@@ -116,12 +142,43 @@ function floatInfoSelection(selection, callback) {
 				if (!callbackFired) {
 					callbackFired = true;
 
+					setBackButtonMode(true);
+
 					$("#more-info-link-container").hide();
 					callback();
 				}
 			});
 		})
 		.finish()
+	});
+}
+
+function floatInfoSelectionDown(callback) {
+	$("#more-info-link-container").show();
+
+	var floatingSelection = $("#more-info-selection");
+
+	var a = $(floatingSelection).offset().top;
+	var b = $(window.moreInfoLinkSelection).offset().top;
+	var y = b - a;
+
+	hideBackButton(false);
+
+	$("#drug-view-container").fadeOut(1000, function() {
+		floatingSelection.velocity({ translateY: y }, 650, function() {
+			$("#more-info-link-container").show();
+
+			centerInterface();
+			showBackButton(false);
+			setBackButtonMode(false);
+
+			floatingSelection.css({ visibility: "hidden" });
+
+			$(window.moreInfoLinkSelection).css({ opacity: 1 });
+			$(".more-info-link").animate({ opacity: 1 }, function() {
+				$("#more-info-link-container").css({ pointerEvents: "auto" });
+			});
+		});
 	});
 }
 
@@ -182,7 +239,7 @@ function showDuration(info, ROA) {
 }
 
 function populateDrugView(info) {
-	$("#drug-view-container").fadeIn().css({ display: "flex" });
+	$("#drug-view-container").fadeIn(1000).css({ display: "flex" });
 	$("#drug-view-loading").hide();
 	centerInterface();
 
@@ -192,11 +249,14 @@ function populateDrugView(info) {
 
 	showDoses(info.dose[ROA]);
 
+	$("#drug-view-roa-container-dose").hide();
+	$("#drug-view-roa-container-duration").hide();
+
 	if (info.multipleROAs) {
 		showDuration(info, ROA);
 
-		$("#drug-view-roa-container-dose").show();
-		$("#drug-view-roa-container-duration").show();
+		$("#drug-view-roa-container-dose").empty().show();
+		$("#drug-view-roa-container-duration").empty().show();
 
 		var first = true;
 
@@ -244,6 +304,8 @@ function populateDrugView(info) {
 		}
 	}
 
+	$("#drug-view-category-container").empty();
+
 	if (info.categories) {
 		info.categories.forEach((category) => {
 			$("#drug-view-category-container").show().append(`
@@ -253,18 +315,20 @@ function populateDrugView(info) {
 	}
 
 	if (info.effects) {
-		//////////////////////////////////////////////////////////////////
+		// DO SOMETHING
 	}
 
+	$("#drug-info-note").show().text("No additional information available for this compound.");
+
 	if (info.note) {
-		$("#drug-info-note").show().text(info.note);
+		$("#drug-info-note").text(info.note);
 	}
 
 	centerInterface();
 }
 
 function showDrugView(selection) {
-	floatInfoSelection(selection, function() {
+	floatInfoSelectionUp(selection, function() {
 		if (selection.id == "more-info-link-first-drug" || selection.id == "more-info-link-second-drug") {
 			$("#drug-view-loading").show().center();
 			getDrugInfo($(selection).text());

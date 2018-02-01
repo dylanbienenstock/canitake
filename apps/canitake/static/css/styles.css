@@ -270,9 +270,10 @@ h1, p {
 
 #more-info, #back {
 	font-size: 3.5vmin;
+    text-shadow: var(--shadow) rgba(0, 0, 0, 0.2);
 }
 
-#more-info-button, #back-button {
+#more-info-button, #back-button, #more-info-back-button {
 	width: 6vmin;
 }
 
@@ -285,12 +286,19 @@ h1, p {
 	margin: 4vh 0 4vh 0;
 }
 
-#back-container:hover {
+.back-button-hover:hover {
 	transform: translateY(-2vh);
 }
 
+.more-info-back-button-hover:hover {
+	transform: scale(0.9);
+}
 
 /* MORE INFO PAGE */
+
+#more-info-back-button {
+	display: none;
+}
 
 #more-info-page {
 	display: flex;
@@ -325,7 +333,7 @@ h1, p {
 }
 
 .more-info-link:hover {
-	opacity: 0.5;
+	opacity: 0.5 !important;
 }
 
 #more-info-selection {
