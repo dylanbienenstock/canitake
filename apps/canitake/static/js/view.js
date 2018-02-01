@@ -49,11 +49,11 @@ function displayInteraction(interactionList) {
 		switch (interaction.status) {
 			case "Low Risk & Synergy":
 				showIcon("synergy");
-				color = "#7F7";
+				color = "#5D5";
 				break;
 			case "Low Risk & No Synergy":
 				showIcon("nosynergy");
-				color = "#7F7";
+				color = "#5D5";
 				break;
 			case "Low Risk & Decrease":
 				showIcon("decrease");
@@ -65,7 +65,7 @@ function displayInteraction(interactionList) {
 				break;
 			case "Unsafe":
 				showIcon("unsafe");
-				color = "#FB0";
+				color = "#F70";
 				break;
 			case "Dangerous":
 				showIcon("dangerous");
