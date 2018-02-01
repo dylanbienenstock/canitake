@@ -126,6 +126,12 @@ function floatInfoSelection(selection, callback) {
 }
 
 function showDoses(dose) {
+	$("#drug-view-threshold-dose").hide();
+	$("#drug-view-light-dose").hide();
+	$("#drug-view-common-dose").hide();
+	$("#drug-view-strong-dose").hide();
+	$("#drug-view-heavy-dose").hide();
+
 	if (dose.Threshold) {
 		$("#drug-view-threshold-dose").show().text("Threshold: " + dose.Threshold);
 	}
@@ -152,9 +158,27 @@ function showDoses(dose) {
 			$(`
 				<p class="drug-view-info">${doseType}: ${dose[doseType]}</p>
 
-			`).prependTo($("#drug-view-section-dose")).show();
+			`).appendTo($("#drug-view-section-dose")).show();
 		}
 	}
+
+	centerInterface();
+}
+
+function showDuration(info, ROA) {
+	if (info.onset[ROA]) {
+		$("#drug-view-onset").show().text("Onset: " + info.onset[ROA]);
+	}
+
+	if (info.duration[ROA]) {
+		$("#drug-view-duration").show().text("Duration: " + info.duration[ROA]);
+	}
+
+	if (info.aftereffects[ROA]) {
+		$("#drug-view-aftereffects").show().text("After-effects: " + info.aftereffects[ROA]);
+	}
+
+	centerInterface();
 }
 
 function populateDrugView(info) {
@@ -166,37 +190,58 @@ function populateDrugView(info) {
 
 	var ROA = Object.keys(info.dose)[0];
 
+	showDoses(info.dose[ROA]);
+
 	if (info.multipleROAs) {
-		$("#drug-view-title-dose").text("Dose");
+		showDuration(info, ROA);
+
 		$("#drug-view-roa-container-dose").show();
+		$("#drug-view-roa-container-duration").show();
+
+		var first = true;
 
 		info.ROAs.forEach(function(ROA) {
-			console.log(ROA);
-
-			$(`
-				<button class="drug-view-roa">${ROA}</button> 
+			var doseButton = $(`
+				<button class="drug-view-roa drug-view-roa-dose noselect">${ROA}</button>
 
 			`).appendTo($("#drug-view-roa-container-dose"))
 			.click(function() {
+				$(".drug-view-roa-dose").removeClass("drug-view-roa-selected")
+				$(this).addClass("drug-view-roa-selected")
+
 				showDoses(info.dose[ROA]);
 			});
+
+			var durationButton = $(`
+				<button class="drug-view-roa drug-view-roa-duration noselect">${ROA}</button>
+
+			`).appendTo($("#drug-view-roa-container-duration"))
+			.click(function() {
+				$(".drug-view-roa-duration").removeClass("drug-view-roa-selected")
+				$(this).addClass("drug-view-roa-selected")
+
+				showDuration(info, ROA);
+			});
+
+			if (first) {
+				first = false;
+
+				doseButton.addClass("drug-view-roa-selected");
+				durationButton.addClass("drug-view-roa-selected");
+			}
 		});
 	} else {
-		$("#drug-view-title-dose").text("Dose (" + ROA + ")");
-	}
+		if (info.onset) {
+			$("#drug-view-onset").show().text("Onset: " + info.onset);
+		}
 
-	showDoses(info.dose[ROA]);
+		if (info.duration) {
+			$("#drug-view-duration").show().text("Duration: " + info.duration);
+		}
 
-	if (info.onset) {
-		$("#drug-view-onset").show().text("Onset: " + info.onset);
-	}
-
-	if (info.duration) {
-		$("#drug-view-duration").show().text("Duration: " + info.duration);
-	}
-
-	if (info.aftereffects) {
-		$("#drug-view-aftereffects").show().text("After-effects: " + info.aftereffects);
+		if (info.aftereffects) {
+			$("#drug-view-aftereffects").show().text("After-effects: " + info.aftereffects);
+		}
 	}
 
 	if (info.categories) {
