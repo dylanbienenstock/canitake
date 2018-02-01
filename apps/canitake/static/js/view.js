@@ -124,6 +124,8 @@ function floatInfoSelectionUp(selection, callback) {
 
 	hideBackButton(true);
 
+	$(selection).removeClass("more-info-link-hover")
+
 	$(".more-info-link").not(selection).animate({
 		opacity: 0
 	}, 1000, function() {
@@ -145,6 +147,7 @@ function floatInfoSelectionUp(selection, callback) {
 					setBackButtonMode(true);
 
 					$("#more-info-link-container").hide();
+					$(selection).addClass("more-info-link-hover");
 					callback();
 				}
 			});
@@ -209,13 +212,22 @@ function showDoses(dose) {
 		$("#drug-view-heavy-dose").show().text("Heavy: " + dose.Heavy);
 	}
 
+	if (window.doseExtras) {
+		window.doseExtras.forEach(function(extra) {
+			extra.remove();
+		});
+	}
+
+	window.doseExtras = [];
+
 	for (var doseType in dose) {
 		if (!["Threshold", "Light", "Common", "Strong", "Heavy"].includes(doseType)) {
 
-			$(`
+			window.doseExtras.push($(`
+
 				<p class="drug-view-info">${doseType}: ${dose[doseType]}</p>
 
-			`).appendTo($("#drug-view-section-dose")).show();
+			`).appendTo($("#drug-view-section-dose")).show());
 		}
 	}
 
