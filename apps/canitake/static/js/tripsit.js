@@ -125,18 +125,18 @@ class TripsitAPI {
 
 					if (multipleROAs) {
 						for (var ROA in response.data[0].formatted_onset) {
-							info.formatted_onset[ROA] = info.formatted_onset[ROA].value
-													 + " " + info.formatted_onset[ROA]._unit;
+							info.formatted_onset[ROA] = info.formatted_onset[ROA]
+													 + " " + info.formatted_onset._unit;
 						}
 
 						for (var ROA in response.data[0].formatted_duration) {
-							info.formatted_duration[ROA] = info.formatted_duration[ROA].value
-													 + " " + info.formatted_duration[ROA]._unit;
+							info.formatted_duration[ROA] = info.formatted_duration[ROA]
+													 + " " + info.formatted_duration._unit;
 						}
 
 						for (var ROA in response.data[0].formatted_aftereffects) {
-							info.formatted_aftereffects[ROA] = info.formatted_aftereffects[ROA].value
-													 + " " + info.formatted_aftereffects[ROA]._unit;
+							info.formatted_aftereffects[ROA] = info.formatted_aftereffects[ROA]
+													 + " " + info.formatted_aftereffects._unit;
 						}
 					} else {
 						info.formatted_onset = info.formatted_onset.value + " " + info.formatted_onset._unit;
