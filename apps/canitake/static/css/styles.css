@@ -387,6 +387,10 @@ h1, p {
 	border-radius: 2vmin;
 
 	overflow: hidden;
+
+	/* Fixes weird 1px gap */
+	position: relative;
+	top: 0.5px;
 }
 
 .drug-view-roa {
