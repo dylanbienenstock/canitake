@@ -29,7 +29,12 @@ $.fn.extend({
 	},
 
 	textCapitalized: function(text) {
-		text = text.charAt(0).toUpperCase() + text.slice(1);
+		if (text.length > 5) { // e.g. "Pimozide"
+			text = text.charAt(0).toUpperCase() + text.slice(1)
+		} else {			   // e.g. "5-HTP"
+			text = text.toUpperCase();
+		}
+
 		$(this).text(text);
 	}
 });
