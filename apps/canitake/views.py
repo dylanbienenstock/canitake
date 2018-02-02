@@ -9,3 +9,10 @@ def index(request):
 	}
 
 	return render(request, "index.html", context)
+
+def contribute(request):
+	context = {
+		"page": "contribute"
+	}
+
+	return render(request, "contribute.html", context)
