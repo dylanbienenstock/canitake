@@ -16,3 +16,10 @@ def contribute(request):
 	}
 
 	return render(request, "contribute.html", context)
+
+def select_substance(request):
+	context = {
+		"page": "contribute"
+	}
+
+	return render(request, "select_substance.html", context)

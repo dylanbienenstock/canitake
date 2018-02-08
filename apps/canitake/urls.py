@@ -4,6 +4,7 @@ from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
+    url(r'^contribute/substances$', views.select_substance),
     url(r'^contribute$', views.contribute),
     url(r'^$', views.index),
 ]
