@@ -1,5 +1,18 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% load static %}
 
-{% block content %} {% load static %}
-	
+{% block head %}
+	<link rel="stylesheet" href="{% static 'css/contribute.css' %}">
+
+	<script src="{% static 'js/contribute.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+	<div id="page-container">
+		<div id="page">
+			<div id="link-container">
+				<div class="link noselect">Substances</div>
+				<div class="link noselect">Interactions</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}
