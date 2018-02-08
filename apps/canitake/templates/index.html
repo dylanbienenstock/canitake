@@ -2,6 +2,7 @@
 
 {% block head %}
 	<link rel="stylesheet" href="{% static 'css/index.css' %}">
+	<link rel="stylesheet" href="{% static 'css/drug-input.css' %}">
 
 	<script src="{% static 'js/FuzzySearch.min.js' %}"></script>
 
@@ -45,7 +46,7 @@
 						<div class="underline-shadow noselect">&nbsp;</div>
 					</div>
 
-					<img id="autocomplete-loading-first-drug" src="{% static 'img/loading.svg' %}">
+					<img class="autocomplete-loader" id="autocomplete-loading-first-drug" src="{% static 'img/loading.svg' %}">
 				</div>
 
 				&nbsp;with&nbsp;
@@ -57,7 +58,7 @@
 						<div class="underline-shadow noselect">&nbsp;</div>
 					</div>
 
-					<img id="autocomplete-loading-second-drug" src="{% static 'img/loading.svg' %}">
+					<img class="autocomplete-loader" id="autocomplete-loading-second-drug" src="{% static 'img/loading.svg' %}">
 				</div>
 
 				?
