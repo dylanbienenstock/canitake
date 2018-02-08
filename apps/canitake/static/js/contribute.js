@@ -3,5 +3,6 @@ $(function() {
 		$("#page").center();
 	});
 
+	$("#page").show();
 	$("#page").center();
 });
