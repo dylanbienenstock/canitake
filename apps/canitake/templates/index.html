@@ -1,8 +1,22 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% load static %}
 
-{% block content %} {% load static %}
+{% block head %}
+	<link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+	<script src="{% static 'js/FuzzySearch.min.js' %}"></script>
+
+	<script src="{% static 'js/interaction.js' %}"></script>
+	<script src="{% static 'js/tripsit.js' %}"></script>
+	<script src="{% static 'js/rxnorm.js' %}"></script>
+	<script src="{% static 'js/aggregator.js' %}"></script>
+	<script src="{% static 'js/view.js' %}"></script>
+	<script src="{% static 'js/main.js' %}"></script>
+
+	<title>Can I Take...?</title>
+{% endblock %}
+
+{% block body %}
 	<div id="autocomplete-container">
-		<!-- <img id="autocomplete-loading" src="{% static 'img/loading.svg' %}"> -->
 		<div id="autocomplete"></div>
 	</div>
 

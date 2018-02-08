@@ -1,0 +1,27 @@
+#page-container {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+}
+
+#page {
+
+}
+
+#link-container {
+	text-align: center;
+	color: white;
+}
+
+.link {
+	cursor: pointer;
+
+	font-size: 9vmin;
+	text-shadow: var(--shadow) rgba(0, 0, 0, 0.2);
+}
+
+.link:hover {
+	opacity: 0.5;
+}
