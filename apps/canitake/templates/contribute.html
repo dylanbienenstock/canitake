@@ -9,9 +9,17 @@
 {% block body %}
 	<div id="page-container">
 		<div id="page">
-			<div id="link-container">
-				<div class="link noselect">Substances</div>
-				<div class="link noselect">Interactions</div>
+			<h1>Thank you</h1>
+
+			<p id="statement">
+				...for showing an interest in contributing to this project. We pull data from two sources. Tripsit.me, which is managed by a <a class="small-link" href="https://twitter.com/teamtripsit">lovely group of people</a>, contains information about (primarily) illicit substances, as well as nootropics and various supplements. Our second source, RxNorm, is managed by the U.S. National Library of Medicine, and contains information about prescription and OTC medications. The goal of this project is to create a database that bridges the gap between those two worlds, in the name of harm reduction. 
+			</p>
+
+			<div id="big-link-container">
+				<p id="hint">I would like to submit / edit...</p>
+
+				<div class="big-link noselect" onclick="document.location.href = '/contribute/substances'">Substances</div>
+				<div class="big-link noselect">Interactions</div>
 			</div>
 		</div>
 	</div>
